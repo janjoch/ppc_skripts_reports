@@ -1,5 +1,6 @@
   #n-Hexane (increasing)
-  
+library(readxl
+        )
 ddr <- function(filename, sheet, export_name){
   
   nhex_inc = read_xlsx(path=filename, sheet=sheet)
@@ -35,7 +36,7 @@ ddr <- function(filename, sheet, export_name){
   points(rez_tk,lnp, type="p",pch=21, bg="white")
   title(main="n-Hexane", sub="measured at steadily incresasing pressure and temperature")
   dev.copy2pdf(file=export_name, width=7)
-  
+  table
   
 }
   
@@ -43,6 +44,6 @@ ddr("DDR_Messdaten_1.xlsx", "n-Hexane (increase)", "Fig_DDR1_nhex_incr.pdf")
 
 ddr("DDR_Messdaten_1.xlsx", "n-Hexane (decrease)", "Fig_DDR1_nhex_decr.pdf")
 
-ddr("DDR_Messdaten_1.xlsx", "Acetone (decrease)", "Fig_DDR1_acet_decr.pdf")
+table <- ddr("DDR_Messdaten_1.xlsx", "Acetone (decrease)", "Fig_DDR1_acet_decr.pdf")
 
 
