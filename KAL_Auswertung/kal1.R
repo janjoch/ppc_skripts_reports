@@ -5,7 +5,8 @@ rm(list=ls())
 
 
 # CONSTANTS
-DRAW.PLOTS = TRUE
+# switch to False to reduce processing time :)
+DRAW.PLOTS = FALSE
 
 THRES <<- 0.2
 
@@ -185,9 +186,12 @@ ethanol_mixture <- function(import.csv) {
   
   mix$eth.m = mix$m2 - mix$m1
   mix$water.m = mix$m3 - mix$m2
+  mix$total.m = mix$eth.m + mix$water.m
+  mix$share.m = mix$eth.m / mix$total.m
   mix$eth.V = mix$eth.m / eth.rho
   mix$water.V = mix$water.m / water.rho
   mix$total.V = mix$eth.V + mix$water.V
+  mix$share.V = mix$eth.V / mix$total.V
   mix$eth.m.perV = mix$eth.m * (ref.V / mix$total.V)
   mix$water.m.perV = mix$water.m * (ref.V / mix$total.V)
   mix$total.m.perV = mix$eth.m.perV + mix$water.m.perV
@@ -206,6 +210,7 @@ for (i in 1:3) {
 
 # calculate heat capacity of setup
 slope.water = mean(slopes.water)
+slope.water.se = sd(slopes.water) / sqrt(2)
 
 system.C = heater.P / slope.water
 water.C = water.m * water.c.sp
