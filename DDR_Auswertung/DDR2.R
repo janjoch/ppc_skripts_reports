@@ -4,7 +4,7 @@ rm(list=ls())
 library("MASS")
 
 NPEAKS = 3
-SAVE <<- TRUE
+SAVE <<- FALSE
 
 PeakIntegral <- function(ind, Zeit, Temp) {
   
