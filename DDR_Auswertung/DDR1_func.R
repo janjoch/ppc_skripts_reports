@@ -7,8 +7,6 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   
   raw_data = read_xlsx(path=filename, sheet=sheet)
   
-  n = length(unlist(raw_data["p/mbar"]))-2
-  
   p = unlist(raw_data["p/mbar"])
   t = unlist(raw_data["T/°C"])
   p0 = 1013.25
@@ -29,7 +27,7 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   print(summary(gerade))
   a = summary(gerade)$coef[1,1]
   b = summary(gerade)$coef[2,1]
-  sa = summary(gerade)$coef[1,2]
+  sa = summary(gerade)$coef[1,2] # Standardfehler davon
   sb = summary(gerade)$coef[2,2]
   
   plot(rez_tk, lnp, type="n",
@@ -40,7 +38,8 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   points(rez_tk,lnp, type="p",pch=21, bg="white")
   dev.copy2pdf(file=export_name_1, width=7)
   
-  ts = qt(0.975, n)
+  dof = length(unlist(raw_data["p/mbar"]))-2  # degrees of freedom
+  ts = qt(0.975, dof)   # ts Fraktile
   d_vH = -R * b      # molare Verdampfungsenthalpie
   c_d_vH = R * sb * ts   # entsprechendes Vertrauensintervall
   
