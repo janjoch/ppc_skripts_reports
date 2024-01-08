@@ -1,0 +1,278 @@
+[Header]
+Format=SMU
+ver=3
+appl=GUMWB32
+MR=0
+SUR=0
+SUP=0
+UIP=1
+UCR=0
+status=2
+FUEB=0
+
+[Title]
+Title='Erdbeschleunigung mittels mathematischen Pendels'
+Ref=''
+Date='08/28/2022'
+Version='1.1'
+Author='B. Niederhauser'
+Description=3
+Description[0]='Mit einer Messung der Pendelperiode \tau\ sowie von dimensionellen Grössen soll'
+Description[1]='die Erdbeschleunigung g'
+Description[2]='ermittelt werden.'
+PictureCount=0
+DCount=0
+
+[Model]
+Model=4
+Model[0]='g=4*\pi\^2/\tau\^2*(L+D/2+(D^2/(5*(2*L+D))));'
+Model[1]='\tau=\tau_gemessen+\delta\\tau_Ablesung+\delta\\tau_Reaktion;'
+Model[2]='L=L_gemessen+\delta\L_Meter+\delta\L_Ablesung;'
+Model[3]='D=D_gemessen+\delta\D_Meter+\delta\D_Ablesung;'
+CE=1
+CTC=1
+
+[Components]
+CompOrder=3
+Comp=14
+Comp[0]=g
+Comp[1]=\pi\
+Comp[2]=\tau\
+Comp[3]=L
+Comp[4]=D
+Comp[5]=\tau\_gemessen_
+Comp[6]=\delta\\tau\_Ablesung_
+Comp[7]=\delta\\tau\_Reaktion_
+Comp[8]=L_gemessen_
+Comp[9]=\delta\L_Meter_
+Comp[10]=\delta\L_Ablesung_
+Comp[11]=D_gemessen_
+Comp[12]=\delta\D_Meter_
+Comp[13]=\delta\D_Ablesung_
+
+[COMP 0]
+Type=Result
+Definition='Erdbeschleunigung'
+Unit='m/s^2'
+Description=0
+Fcov=2
+NomUnit=
+UncUnit=
+CovID=1
+UncID=0
+Vnom=9.83981159714469
+Ustd=0.232234000088176
+Neff=17
+HB=1
+HC=0
+HR=1
+IO=0
+PictureCount=0
+DCount=0
+
+[COMP 1]
+Type=Const
+Definition='Pi'
+Unit=''
+Description=0
+Vnom=3.1415926535898
+PictureCount=0
+DCount=0
+
+[COMP 2]
+Type=Temp
+Definition='Pendel-Periode'
+Unit='s'
+Description=0
+Fcov=2
+NomUnit=
+UncUnit=
+CovID=12
+UncID=0
+Vnom=1.145
+Ustd=0.0134065226097168
+Neff=16
+HB=1
+HC=0
+HR=0
+IO=0
+PictureCount=0
+DCount=0
+
+[COMP 3]
+Type=Temp
+Definition='Distanz zwischen Rotationspunkt und höchstem Punkt der Kugel'
+Unit='m'
+Description=0
+Fcov=2
+NomUnit=
+UncUnit=
+CovID=1
+UncID=2
+Vnom=0.301
+Ustd=0.000765898165554664
+Neff=76
+HB=1
+HC=0
+HR=0
+IO=0
+PictureCount=0
+DCount=0
+
+[COMP 4]
+Type=Temp
+Definition='Durchmesser der Kugel'
+Unit='m'
+Description=0
+Fcov=2
+NomUnit=
+UncUnit=
+CovID=1
+UncID=2
+Vnom=0.05
+Ustd=0.00106390789074995
+Neff=22
+HB=1
+HC=0
+HR=0
+IO=0
+PictureCount=0
+DCount=0
+
+[COMP 5]
+Type=TypAExper
+Definition='Gemessene Periode als Mittelwert von Messungen'
+Unit='s'
+Description=0
+Observations=12
+Reading=12
+Reading[0]=1.148
+Reading[1]=1.211
+Reading[2]=1.175
+Reading[3]=1.157
+Reading[4]=1.115
+Reading[5]=1.076
+Reading[6]=1.145
+Reading[7]=1.106
+Reading[8]=1.172
+Reading[9]=1.172
+Reading[10]=1.082
+Reading[11]=1.181
+Mode=0
+MinObs=12
+PictureCount=0
+DCount=0
+
+[COMP 6]
+Type=TypBRectang
+Definition='Ableseunsicherheit der Periodenmessungen'
+Unit='s'
+Description=0
+Vnom=0
+Hlim=0.0005
+PictureCount=0
+DCount=0
+
+[COMP 7]
+Type=TypBRectang
+Definition='Unsicherheit der Reaktionszeit'
+Unit='s'
+Description=0
+Vnom=0.0
+Hlim=0.01
+PictureCount=0
+DCount=0
+
+[COMP 8]
+Type=TypASum
+Definition='Gemessene Länge als Mittelwert von Messungen'
+Unit='m'
+Description=0
+Vnom=0.301
+Ustd=0.00046
+Neff=10
+PictureCount=0
+DCount=0
+
+[COMP 9]
+Type=TypBRectang
+Definition='Genauigkeit des Meters'
+Unit='m'
+Description=0
+Vnom=0
+Hlim=0.001
+PictureCount=0
+DCount=0
+
+[COMP 10]
+Type=TypBTriangl
+Definition='Ableseunsichereit der Längenmessungen'
+Unit='m'
+Description=0
+Vnom=0
+Hlim=0.0005
+PictureCount=0
+DCount=0
+
+[COMP 11]
+Type=TypASum
+Definition='Gemessener Durchmesser als Mittelwert von Messungen'
+Unit='m'
+Description=0
+Vnom=0.050
+Ustd=0.00087
+Neff=10
+PictureCount=0
+DCount=0
+
+[COMP 12]
+Type=TypBRectang
+Definition='Genauigkeit des Meters'
+Unit='m'
+Description=0
+Vnom=0
+Hlim=0.001
+PictureCount=0
+DCount=0
+
+[COMP 13]
+Type=TypBTriangl
+Definition='Ableseunsichereit der Längenmessungen'
+Unit='m'
+Description=0
+Vnom=0
+Hlim=0.0005
+PictureCount=0
+DCount=0
+
+[Correlations]
+Description=0
+
+[CalCorr]
+CNT=21
+R[0,2]=-0.9923952
+R[0,3]=0.0990766
+R[0,4]=0.0730452
+R[0,5]=-0.8954299
+R[0,7]=-0.4273138
+R[0,9]=0.0746861
+R[0,11]=0.059732
+R[0,8]=0.0595056
+R[0,12]=0.0396394
+R[0,10]=0.0264055
+R[0,6]=-0.0213646
+R[0,13]=0.0140146
+R[2,5]=0.9022627
+R[2,7]=0.4306488
+R[2,6]=0.0215324
+R[3,9]=0.7538212
+R[3,8]=0.600602
+R[3,10]=0.266516
+R[4,11]=0.81774
+R[4,12]=0.5426694
+R[4,13]=0.1918626
+
+[Diagrams]
+Version=1.0
+Count=0
+
