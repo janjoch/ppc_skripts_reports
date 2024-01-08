@@ -1,4 +1,6 @@
+
 rm(list=ls())
+
 library(readxl)
 
 R = 8.314462618    # J K^-1 mol^-1
@@ -65,7 +67,7 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   abline(h=p0, lty=2)
   dev.copy2pdf(file=export_name_2, width=7)
 }
-  
+
 ddr("DDR_Messdaten_1.xlsx", "n-Hexane (all)", "Fig_DDR1_nhex_1.pdf", "Fig_DDR1_nhex_2.pdf")
 
 ddr("DDR_Messdaten_1.xlsx", "Acetone (all)", "Fig_DDR1_acet_1.pdf", "Fig_DDR_acet_2.pdf")
