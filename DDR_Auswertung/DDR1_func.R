@@ -51,6 +51,7 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   table_2 = data.frame(d_vH, c_d_vH, ntk, d_vS)
   names(table_2) = c("d_vH", "c_d_vH", "ntk", "d_vS")
   print(table_2)
+  print(ts)
   
   t_curve = seq(from=5,to=ntk-273.15+2, length=201)
   p_curve = p0*exp(a + b/(t_curve + 273.15))
