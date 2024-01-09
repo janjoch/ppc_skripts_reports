@@ -1,17 +1,14 @@
 
-library(latex2exp)
-
 rm(list=ls())
-
 
 # CONSTANTS
 # switch to False to reduce processing time :)
-DRAW.PLOTS = FALSE
+DRAW.PLOTS = TRUE
 
 THRES <<- 0.2
 
-HEIGHT <<- 5
-WIDTH <<- 7
+HEIGHT <<- 7
+WIDTH <<- 10
 
 IMPORT_PATH <<- "raw_data/"
 EXPORT_PATH_CAL <<- "exports/calib/"
@@ -34,150 +31,37 @@ heater.P <<- heater.U * heater.I  # W
 
 
 # HELPER FUNCTIONS
-join <- function(...) {
-  paste(..., sep="")
-}
-
-annotation <- function(x, y, text, xjust=0.5, yjust=0.5) {
-  legend(
-    x,
-    y,
-    text,
-    bg="white",
-    box.col="white",
-    adj=0.15,
-    xjust=xjust,
-    yjust=yjust,
-  )
-}
+source("helpers.R")
+source("kal_routines.R")
 
 
 # LINEAR REGRESSION MAIN FUNCTION
-calibration.linreg <- function(import.datfile, export.path, export.plot, export.stats) {
+calibration.linreg <- function(
+  import.datfile,
+  export.path,
+  export.plot,
+  export.stats,
+  plot.init=TRUE
+) {
   
   calib = read.table(join(IMPORT_PATH, import.datfile))
   time = calib$V1
   temp = calib$V2
   
-  temp.equib = mean(temp[1:10])
-  print("initial equilibrium temperature")
-  print(temp.equib)
-  index.max = which.max(temp)
-  temp.max = temp[index.max]
-  
-  index.slopestart = which(temp > (temp.equib + THRES))[1]
-  index.slopestop = tail(which(temp < temp.max - THRES), n=1)
-  
-  time.slope = time[index.slopestart:index.slopestop]
-  temp.slope = temp[index.slopestart:index.slopestop]
-  n.slope = index.slopestop - index.slopestart + 1
-  time.slope.min = time.slope[1]
-  temp.slope.min = temp.slope[1]
-  time.slope.max = time.slope[n.slope]
-  temp.slope.max = temp.slope[n.slope]
-  
-  
-  time.delta = time.slope.max - time.slope.min
-  temp.delta = temp.slope.max - temp.slope.min
-  
-  reg = lm(temp.slope ~ time.slope)
-  print(summary(reg))
-  reg.a = summary(reg)$coef[1,1]
-  reg.b = summary(reg)$coef[2,1]
-  reg.sa = summary(reg)$coef[1,2]
-  reg.sb = summary(reg)$coef[2,2]
-  
-  
-  # SUMMARISE STATS
-  statistics = data.frame(
-    n.slope,
-    index.slopestart,
-    index.slopestop,
-    time.delta,
-    temp.delta,
-    time.slope.min,
-    temp.slope.min,
-    time.slope.max,
-    temp.slope.max,
-    reg.a,
-    reg.b,
-    reg.sa,
-    reg.sb
+  statistics = process.slope(
+    time, temp,
+    export.path=export.path,
+    export.stats=export.stats,
+    plot.init=plot.init
   )
-  write.csv(statistics, join(export.path, export.stats))
   
-  
-  # PLOT
   if(DRAW.PLOTS) {
-    # init plot
-    plot(time, temp,
-         type = "l",
-         lwd=2,
-         col="darkgrey",
-         xlab=expression(italic(t)*" / "*"s"),
-         ylab=expression(italic(T)*" / "*"°C")
-    )
-    grid(nx = NULL, ny = NULL,
-         lty = 1,      # Grid line type
-         col = "lightgray", # Grid line color
-         lwd = 1)      # Grid line width
-    
-    # mark slope
-    lines(
-      time.slope,
-      temp.slope,
-      col="blue",
-      lw=3
-    )
-    
-    # delta t
-    lines(
-      c(time.slope.min, time.slope.max),
-      c(temp.slope.min, temp.slope.min),
-      lty=3,
-      lw=2,
-      col="black"
-    )
-    annotation(
-      mean(time.slope),
-      temp.slope.min,
-      TeX(paste(r"(\Delta t =)", time.delta, "s"))
-    )
-    
-    # delta T
-    lines(
-      c(time.slope.max, time.slope.max),
-      c(temp.slope.min, temp.slope.max),
-      lty=3,
-      lw=2,
-      col="black"
-    )
-    annotation(
-      time.slope.max,
-      mean(temp.slope),
-      TeX(paste(r"(\Delta T =)", sprintf("%0.2f", temp.delta), "K"))
-    )
-  
-    # slope
-    annotation(
-      time.slope.min,
-      temp.slope.max,
-      TeX(paste(r"(slope:)", sprintf("%0.4f", reg.b), "K / s")),
-      xjust=0.3,
-      yjust=1
-    )
-    
-    # Regressionsgerade
-    abline(reg, lty=2, lw=2)
-    
-    
-    # EXPORT
-    dev.copy2pdf(file=join(export.path, export.plot), width=WIDTH, height=HEIGHT)
+    plot.save(export.path, export.plot)
   }
   
   statistics
-  
 }
+
 
 
 # PROCESS ETHANOL MIXTURE DATA
