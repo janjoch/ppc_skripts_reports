@@ -105,20 +105,41 @@ process.drop <- function(
   temp,
   time,
   export.path,
-  export.stats
+  export.stats,
+  detect.offset.high=10,
+  detect.width.high=40,
+  detect.offset.low=20,
+  detect.width.low=40,
+  detect.mode="nextslope",
+  label.position="above"
 ) {
   temp.equib.start = mean(temp[1:10])
   index.drop = which(temp < temp.equib.start - THRES.DROP)[1]
-  time.equib = time[(index.drop - 10 - EQUIB.WIDTH):(index.drop - 10)]
-  temp.equib = temp[(index.drop - 10 - EQUIB.WIDTH):(index.drop - 10)]
+  time.equib = time[(index.drop - detect.offset.high - detect.width.high):(index.drop - detect.offset.high)]
+  temp.equib = temp[(index.drop - detect.offset.high - detect.width.high):(index.drop - detect.offset.high)]
   temp.equib.mean = mean(temp.equib)
   
-  index.min = which.min(temp)
-  time.min = time[index.min]
-  temp.min = temp[index.min]
+  if(detect.mode == "slope.next") {
+    dtemp = temp[2:length(temp)] - temp[1:(length(temp) - 1)]
+    slope.indexstart = which(dtemp > THRES.DIFF)[1]
+    if(length(slope.indexstart) == 0) {
+      print("WARNING: NEXT SLOPE NOT DETECTED. ADJUST THRES.DIFF?")
+      PRINT("    falling back to detect.mode='min.after'")
+      detect.mode = "min.after"
+    } else {
+      index.detected = slope.indexstart - detect.offset.low - detect.width.low
+    }
+    
+  }
+  if(detect.mode == "min.after") {
+    index.detected = which.min(temp) + detect.offset.low
+  }
   
-  time.low = time[index.min : (index.min + EQUIB.WIDTH)]
-  temp.low = temp[index.min : (index.min + EQUIB.WIDTH)]
+  time.min = time[index.detected]
+  temp.min = temp[index.detected]
+  
+  time.low = time[index.detected : (index.detected + detect.width.low)]
+  temp.low = temp[index.detected : (index.detected + detect.width.low)]
   temp.low.mean = mean(temp.low)
   
   temp.delta = temp.low.mean - temp.equib.mean
@@ -127,7 +148,7 @@ process.drop <- function(
     index.drop,
     temp.equib.mean,
     EQUIB.WIDTH,
-    index.min,
+    index.detected,
     temp.low.mean,
     temp.delta
   )
@@ -138,24 +159,37 @@ process.drop <- function(
     plot.line.highlight(time.low, temp.low, col="orange")
     
     plot.line.annot(
-      c(time[index.drop - 10], time[index.min + EQUIB.WIDTH]),
+      c(time[index.drop - 10], time[index.detected + EQUIB.WIDTH]),
       c(temp.equib.mean, temp.equib.mean)
     )
     
     plot.line.annot(
       c(
-        (time[index.min] + time[index.min + EQUIB.WIDTH]) / 2,
-        (time[index.min] + time[index.min + EQUIB.WIDTH]) / 2
+        (time[index.detected] + time[index.detected + EQUIB.WIDTH]) / 2,
+        (time[index.detected] + time[index.detected + EQUIB.WIDTH]) / 2
       ),
       c(temp.equib.mean, temp.low.mean)
     )
     
+    if(label.position=="above") {
+      label.y = temp.equib.mean
+      label.yjust = -0.3
+    } else if(label.position=="center") {
+      label.y = (temp.equib.mean + temp.low.mean) / 2
+      label.yjust = 0.5
+    } else {
+      print(join("WARNING: label.position='", label.position, "' not implemented!"))
+      print("    falling back to label.position='above'")
+      label.y = temp.equib.mean
+      label.yjust = -0.3
+    }
+    
     plot.annot(
-      (time[index.min] + time[index.min + EQUIB.WIDTH]) / 2,
-      temp.equib.mean,
+      (time[index.detected] + time[index.detected + EQUIB.WIDTH]) / 2,
+      label.y,
       TeX(paste(r"(\Delta T =)", sprintf("%0.3f", (temp.delta)), "K")),
       xjust=0.5,
-      yjust=-0.3
+      yjust=label.yjust
     )
     
   }

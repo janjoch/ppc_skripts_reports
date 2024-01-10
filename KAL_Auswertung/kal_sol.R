@@ -1,11 +1,17 @@
 
 rm(list=ls())
 
+# raw = read.table(join(IMPORT_PATH, "sol_ent1.dat"))
+# > time = raw$V1
+# > temp = raw$V2
+
+
 # CONSTANTS
 DRAW.PLOTS = TRUE
 
 THRES <<- 0.2
 THRES.DROP <<- 0.1
+THRES.DIFF <<- 0.007
 
 EQUIB.WIDTH = 40
 
