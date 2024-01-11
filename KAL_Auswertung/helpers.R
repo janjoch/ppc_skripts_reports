@@ -33,6 +33,14 @@ join <- function(...) {
 # c(a,b,c) := func_that_returns_three_values(1,2,3)
 
 
+FBy <- function(x, y, sy, ...) {
+  # copied from Meister  
+  arrows(x, y - sy, x, y + sy, code=3, angle=90, length=0.02)
+  points(x, y, pch=21, ...)
+}
+
+
+
 # PLOT MODULAR FUNCTIONS
 plot.init.grey <- function(x, y) {
   plot(x, y,
@@ -42,10 +50,19 @@ plot.init.grey <- function(x, y) {
        xlab=expression(italic(t)*" / "*"s"),
        ylab=expression(italic(T)*" / "*"°C")
   )
-  grid(nx = NULL, ny = NULL,
-       lty = 1,      # Grid line type
-       col = "lightgray", # Grid line color
-       lwd = 1)      # Grid line width
+  plot.grid()
+}
+
+
+plot.grid <- function(nx=NULL, ny=NULL, lty=1, col="lightgray", lwd=1, ...) {
+  grid(
+    nx = nx,
+    ny = ny,
+    lty = lty,      # Grid line type
+    col = col, # Grid line color
+    lwd = lwd,      # Grid line width
+    ...
+  )
 }
 
 
@@ -70,7 +87,7 @@ plot.line.annot <- function(x, y) {
   
 }
 
-plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5) {
+plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5, ...) {
   legend(
     x,
     y,
@@ -80,6 +97,7 @@ plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5) {
     adj=0.15,
     xjust=xjust,
     yjust=yjust,
+    ...
   )
 }
 
