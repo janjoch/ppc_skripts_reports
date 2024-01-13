@@ -64,8 +64,8 @@ trans_enthalp <- function (filename, save_to) {
 
 }
 
-#trans_enthalp("methanolmzjj.dat", "ddr2_exports/methanol")
-#trans_enthalp("acetone-2-mzjj.dat", "ddr2_exports/acetone")
-trans_enthalp("acetone-mzjj.dat", "ddr2_exports/acetone-old")
-#trans_enthalp("n-hexane-mzjj.dat", "ddr2_exports/n-hexane")
+trans_enthalp("methanolmzjj.dat", "ddr2_exports/methanol")
+trans_enthalp("acetone-2-mzjj.dat", "ddr2_exports/acetone")
+#trans_enthalp("acetone-mzjj.dat", "ddr2_exports/acetone-old")
+trans_enthalp("n-hexane-mzjj.dat", "ddr2_exports/n-hexane")
 

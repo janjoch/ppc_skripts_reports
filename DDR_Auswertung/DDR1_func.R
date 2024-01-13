@@ -5,7 +5,7 @@ library(readxl)
 
 R = 8.314462618    # J K^-1 mol^-1
 
-ddr <- function(filename, sheet, export_name_1, export_name_2){
+ddr <- function(filename, sheet, export_name_1, export_name_2, export.csv){
   
   raw_data = read_xlsx(path=filename, sheet=sheet)
   
@@ -29,7 +29,7 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   print(summary(gerade))
   a = summary(gerade)$coef[1,1]
   b = summary(gerade)$coef[2,1]
-  sa = summary(gerade)$coef[1,2] # Standardfehler davon
+  sa = summary(gerade)$coef[1,2]  # Standardfehler davon
   sb = summary(gerade)$coef[2,2]
   
   plot(rez_tk, lnp, type="n",
@@ -51,7 +51,8 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   table_2 = data.frame(d_vH, c_d_vH, ntk, d_vS)
   names(table_2) = c("d_vH", "c_d_vH", "ntk", "d_vS")
   print(table_2)
-  print(ts)
+  write.csv(table_2, export.csv)
+  #print(ts)
   
   t_curve = seq(from=5,to=ntk-273.15+2, length=201)
   p_curve = p0*exp(a + b/(t_curve + 273.15))
@@ -69,9 +70,9 @@ ddr <- function(filename, sheet, export_name_1, export_name_2){
   dev.copy2pdf(file=export_name_2, width=7)
 }
 
-ddr("DDR_Messdaten_1.xlsx", "n-Hexane (all)", "Fig_DDR1_nhex_1.pdf", "Fig_DDR1_nhex_2.pdf")
+ddr("DDR_Messdaten_1.xlsx", "n-Hexane (all)", "old/Fig_DDR1_nhex_1.pdf", "old/Fig_DDR1_nhex_2.pdf", "ddr1_stats/nhex.csv")
 
-ddr("DDR_Messdaten_1.xlsx", "Acetone (all)", "Fig_DDR1_acet_1.pdf", "Fig_DDR_acet_2.pdf")
+ddr("DDR_Messdaten_1.xlsx", "Acetone (all)", "old/Fig_DDR1_acet_1.pdf", "old/Fig_DDR_acet_2.pdf", "ddr1_stats/acetone.csv")
 
 
 
