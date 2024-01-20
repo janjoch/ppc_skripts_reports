@@ -42,13 +42,22 @@ FBy <- function(x, y, sy, ...) {
 
 
 # PLOT MODULAR FUNCTIONS
-plot.init.grey <- function(x, y) {
+plot.init.grey <- function(
+  x,
+  y,
+  xlim=NULL,
+  ylim=NULL,
+  xlab=expression(italic(t)*" / "*"s"),
+  ylab=expression(italic(T)*" / "*"°C")
+) {
   plot(x, y,
        type = "l",
        lwd=2,
        col="darkgrey",
-       xlab=expression(italic(t)*" / "*"s"),
-       ylab=expression(italic(T)*" / "*"°C")
+       xlim=xlim,
+       ylim=ylim,
+       xlab=xlab,
+       ylab=ylab
   )
   plot.grid()
 }
