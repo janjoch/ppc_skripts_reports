@@ -10,9 +10,9 @@ THRES <<- 0.2
 HEIGHT <<- 7
 WIDTH <<- 10
 
-IMPORT_PATH <<- "raw_data/"
-EXPORT_PATH_CAL <<- "exports/calib/"
-EXPORT_PATH_ETH <<- "exports/ethanol/"
+IMPORT_PATH <<- "raw_data/samuel_kai/"
+EXPORT_PATH_CAL <<- "exports/calib/samuel_kai/"
+EXPORT_PATH_ETH <<- "exports/ethanol/samuel_kai/"
 
 ref.V <<- 0.1  # L
 
@@ -88,7 +88,7 @@ ethanol_mixture <- function(import.csv) {
 slopes.water = c()
 
 for (i in 1:3) {
-  st = calibration.linreg(join("cal",i,".dat"), EXPORT_PATH_CAL, join("cal",i,".pdf"), join("cal",i,"_stats.csv"))
+  st = calibration.linreg(join("calibration_",i,"_samuel_wechsler.dat"), EXPORT_PATH_CAL, join("cal",i,".pdf"), join("cal",i,"_stats.csv"))
   slopes.water = cbind(slopes.water, st$reg.b)
 }
 
@@ -107,7 +107,7 @@ mix$c.sp = c(0,0,0)
 
 for (i in 1:3) {
   target = mix$mass_percent_aim[i]
-  st = calibration.linreg(join("ethanol",target,".dat"), EXPORT_PATH_ETH, join("ethanol",target,".pdf"), join("ethanol",target,"_stats.csv"))
+  st = calibration.linreg(join("heatcapacity_",target,".dat"), EXPORT_PATH_ETH, join("ethanol",target,".pdf"), join("ethanol",target,"_stats.csv"))
   mix$C[i] = heater.P / st$reg.b - dewar.C  # J
   mix$c.sp[i] = mix$C[i]/ mix$total.m.perV[i]
 }

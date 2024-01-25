@@ -48,7 +48,8 @@ plot.init.grey <- function(
   xlim=NULL,
   ylim=NULL,
   xlab=expression(italic(t)*" / "*"s"),
-  ylab=expression(italic(T)*" / "*"°C")
+  ylab=expression(italic(T)*" / "*"°C"),
+  ...
 ) {
   plot(x, y,
        type = "l",
@@ -57,7 +58,8 @@ plot.init.grey <- function(
        xlim=xlim,
        ylim=ylim,
        xlab=xlab,
-       ylab=ylab
+       ylab=ylab,
+       ...
   )
   plot.grid()
 }
