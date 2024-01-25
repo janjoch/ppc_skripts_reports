@@ -22,8 +22,8 @@ water.m <<- water.rho * ref.V  # kg
 
 eth.rho <<- 0.7893  # kg / L
 
-heater.U <<- 10.0  # V
-heater.I <<- 1.61  # A
+heater.U <<- 9.6  # V
+heater.I <<- 1.37  # A
 heater.P <<- heater.U * heater.I  # W
 
 # for clean display:
