@@ -112,6 +112,62 @@ plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5, ...) {
   )
 }
 
+plot.regression <- function(
+  x,
+  y,
+  slope.unit,
+  slope.annot.x.offset=0,
+  slope.annot.y.offset=0
+) {
+    reg <- lm(y ~ x)
+    y.pred <- predict(reg)
+
+    x.min = min(x)
+    x.max = max(x)
+    y.pred.min = min(y.pred)
+    y.pred.max = max(y.pred)
+
+    x.delta = x.max - x.min
+    y.pred.delta = y.pred.max - y.pred.min
+
+
+    # delta t
+    plot.line.annot(
+      c(min(x), max(x)),
+      c(min(y.pred), min(y.pred))
+    )
+    plot.annot(
+      mean(c(min(x), max(x))),
+      min(y.pred),
+      TeX(paste(r"(\Delta t =)", x.delta, "s"))
+    )
+    
+    # delta T
+    plot.line.annot(
+      c(max(x), max(x)),
+      c(min(y.pred), max(y.pred))
+    )
+    plot.annot(
+      max(x),
+      mean(c(min(y.pred), max(y.pred))),
+      TeX(paste(r"(\Delta T =)", sprintf("%0.2f", y.pred.delta), "K"))
+    )
+    
+    # slope
+    plot.annot(
+      min(x) + slope.annot.x.offset * x.delta,
+      max(y.pred) - slope.annot.y.offset * y.pred.delta,
+      TeX(paste(r"(slope:)", sprintf("%0.4f", summary(reg)$coef[2,1]), slope.unit)),
+      xjust=0.3,
+      yjust=1
+    )
+    
+    # Regressionsgerade
+    abline(reg, lty=2, lw=2)
+
+    reg
+}
+
 plot.save <- function(export.path, export.plot) {
   dev.copy2pdf(file=join(export.path, export.plot), width=WIDTH, height=HEIGHT)
 }

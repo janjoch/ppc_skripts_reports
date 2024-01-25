@@ -17,13 +17,13 @@ WIDTH <<- 7
 
 
 # import data
-data.import = read_excel("raw_data/waermekapazitaet_ethanol.xlsx", sheet="data")
-mass = data.import$mass_percentage  # UPDATE TO mass_percentage_measured
+data.import = read.csv("raw_data/waermekapazitaet_ethanol.csv")
+mass = (data.import$mass_percentage_measured * 100)
 heat = data.import$specific_heat_capacity_mean
-heat.ci = data.import$heat_capcity_ci_95
+heat.ci = data.import$calibration_se * 2
 group = data.import$group
 
-legend.import = read_excel("raw_data/waermekapazitaet_ethanol.xlsx", sheet="groups")
+legend.import = read.csv("raw_data/waermekapazitaet_ethanol_groups.csv")
 legend.id = legend.import$id
 legend.name = legend.import$name
 
@@ -44,7 +44,7 @@ plot.colorcycle = c('#006BA4', '#FF800E', '#ABABAB', '#595959', '#5F9ED1', '#C85
 par(mai = c(1,1.2,0.3,0.3))
 plot.init.grey(
   mass, heat,
-  xlab="Massen-% Wasser",
+  xlab="Massen-% Ethanol",
   ylab=expression("spezifische Wärmekapazität "*italic(c)[p]^sp*" / "*J*K^-1*g^-1),
   #xaxt='n'
   ylim=c(min.val, max.val),
@@ -63,7 +63,7 @@ FBy(
 # break
 
 legend(
-  "bottomleft",
+  "topright",
   legend=legend.name,
   pt.bg=plot.colorcycle[legend.id],
   pch=rep(21, length(legend.name)),
@@ -71,7 +71,7 @@ legend(
   bg="white"
 )
 
-text(50,3000, "FAKE DATA!", cex=2)
+text(35,3000, "PRELIMINARY!", cex=2)
 
 
 
