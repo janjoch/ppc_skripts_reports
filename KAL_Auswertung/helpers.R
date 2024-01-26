@@ -33,6 +33,12 @@ join <- function(...) {
 # c(a,b,c) := func_that_returns_three_values(1,2,3)
 
 
+predict.linear <- function(reg.a, reg.b, x) {
+  y = reg.a + reg.b * x
+  y
+}
+
+
 FBy <- function(x, y, sy, ...) {
   # copied from Meister  
   arrows(x, y - sy, x, y + sy, code=3, angle=90, length=0.02)
@@ -49,17 +55,22 @@ plot.init.grey <- function(
   ylim=NULL,
   xlab=expression(italic(t)*" / "*"s"),
   ylab=expression(italic(T)*" / "*"°C"),
+  type="l",
+  lwd=2,
+  col="darkgrey",
   ...
 ) {
-  plot(x, y,
-       type = "l",
-       lwd=2,
-       col="darkgrey",
-       xlim=xlim,
-       ylim=ylim,
-       xlab=xlab,
-       ylab=ylab,
-       ...
+  plot(
+    x,
+    y,
+    type=type,
+    lwd=lwd,
+    col=col,
+    xlim=xlim,
+    ylim=ylim,
+    xlab=xlab,
+    ylab=ylab,
+    ...
   )
   plot.grid()
 }
@@ -76,6 +87,17 @@ plot.grid <- function(nx=NULL, ny=NULL, lty=1, col="lightgray", lwd=1, ...) {
   )
 }
 
+plot.axis.log <- function(begin=1e-10, end=1e10) {
+  d = 10^c(-99:99)
+  d = d[d>=begin & d<=end]
+  dd = outer(c(1:9), 10^c(-99:99))
+  dd = dd[dd>=begin & dd<=end]
+  dlab = do.call(
+    "expression",
+    lapply(seq(along=log10(d)), function(i) substitute(10^E, list(E=log10(d)[i])))
+  )
+  list("big"=d, "small"=dd, "big.lab"=dlab)
+}
 
 plot.line.highlight <- function(x, y, col="blue") {
   lines(
@@ -98,14 +120,14 @@ plot.line.annot <- function(x, y) {
   
 }
 
-plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5, ...) {
+plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5, adj=0.15, ...) {
   legend(
     x,
     y,
     text,
     bg="white",
     box.col="white",
-    adj=0.15,
+    adj=adj,
     xjust=xjust,
     yjust=yjust,
     ...
@@ -117,7 +139,10 @@ plot.regression <- function(
   y,
   slope.unit,
   slope.annot.x.offset=0,
-  slope.annot.y.offset=0
+  slope.annot.y.offset=0,
+  draw.annotation=TRUE,
+  abline.lty=2,
+  ...
 ) {
     reg <- lm(y ~ x)
     y.pred <- predict(reg)
@@ -131,39 +156,41 @@ plot.regression <- function(
     y.pred.delta = y.pred.max - y.pred.min
 
 
-    # delta t
-    plot.line.annot(
-      c(min(x), max(x)),
-      c(min(y.pred), min(y.pred))
-    )
-    plot.annot(
-      mean(c(min(x), max(x))),
-      min(y.pred),
-      TeX(paste(r"(\Delta t =)", x.delta, "s"))
-    )
-    
-    # delta T
-    plot.line.annot(
-      c(max(x), max(x)),
-      c(min(y.pred), max(y.pred))
-    )
-    plot.annot(
-      max(x),
-      mean(c(min(y.pred), max(y.pred))),
-      TeX(paste(r"(\Delta T =)", sprintf("%0.2f", y.pred.delta), "K"))
-    )
-    
-    # slope
-    plot.annot(
-      min(x) + slope.annot.x.offset * x.delta,
-      max(y.pred) - slope.annot.y.offset * y.pred.delta,
-      TeX(paste(r"(slope:)", sprintf("%0.4f", summary(reg)$coef[2,1]), slope.unit)),
-      xjust=0.3,
-      yjust=1
-    )
+    if(draw.annotation) {
+      # delta t
+      plot.line.annot(
+        c(min(x), max(x)),
+        c(min(y.pred), min(y.pred))
+      )
+      plot.annot(
+        mean(c(min(x), max(x))),
+        min(y.pred),
+        TeX(paste(r"(\Delta t =)", x.delta, "s"))
+      )
+      
+      # delta T
+      plot.line.annot(
+        c(max(x), max(x)),
+        c(min(y.pred), max(y.pred))
+      )
+      plot.annot(
+        max(x),
+        mean(c(min(y.pred), max(y.pred))),
+        TeX(paste(r"(\Delta T =)", sprintf("%0.2f", y.pred.delta), "K"))
+      )
+      
+      # slope
+      plot.annot(
+        min(x) + slope.annot.x.offset * x.delta,
+        max(y.pred) - slope.annot.y.offset * y.pred.delta,
+        TeX(paste(r"(slope:)", sprintf("%0.4f", summary(reg)$coef[2,1]), slope.unit)),
+        xjust=0.3,
+        yjust=1
+      )
+    }
     
     # Regressionsgerade
-    abline(reg, lty=2, lw=2)
+    abline(reg, lty=abline.lty, lw=2, ...)
 
     reg
 }
