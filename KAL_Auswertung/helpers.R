@@ -137,11 +137,13 @@ plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5, adj=0.15, ...) {
 plot.regression <- function(
   x,
   y,
-  slope.unit,
+  draw.annotation=TRUE,
+  slope.annot=(function(slope)(TeX(paste(r"(slope:)", sprintf("%0.4f", slope), "K/s")))),
   slope.annot.x.offset=0,
   slope.annot.y.offset=0,
-  draw.annotation=TRUE,
   abline.lty=2,
+  delta.annot.x=(function(delta)(TeX(paste(r"(\Delta t =)", sprintf("%0.2f", delta), "s")))),
+  delta.annot.y=(function(delta)(TeX(paste(r"(\Delta T =)", sprintf("%0.2f", delta), "K")))),
   ...
 ) {
     reg <- lm(y ~ x)
@@ -165,7 +167,7 @@ plot.regression <- function(
       plot.annot(
         mean(c(min(x), max(x))),
         min(y.pred),
-        TeX(paste(r"(\Delta t =)", x.delta, "s"))
+        delta.annot.x(x.delta)
       )
       
       # delta T
@@ -176,14 +178,14 @@ plot.regression <- function(
       plot.annot(
         max(x),
         mean(c(min(y.pred), max(y.pred))),
-        TeX(paste(r"(\Delta T =)", sprintf("%0.2f", y.pred.delta), "K"))
+        delta.annot.y(y.pred.delta)
       )
       
       # slope
       plot.annot(
         min(x) + slope.annot.x.offset * x.delta,
         max(y.pred) - slope.annot.y.offset * y.pred.delta,
-        TeX(paste(r"(slope:)", sprintf("%0.4f", summary(reg)$coef[2,1]), slope.unit)),
+        slope.annot(summary(reg)$coef[2,1]),
         xjust=0.3,
         yjust=1
       )

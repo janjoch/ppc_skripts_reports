@@ -2,8 +2,8 @@
 
 rm(list=ls())
 
-WIDTH <<- 7
-HEIGHT <<- 5
+WIDTH <<- 5
+HEIGHT <<- 4
 
 # setwd("LFK_Auswertung")
 # quartz(height=HEIGHT, width=WIDTH)
@@ -40,8 +40,9 @@ plot.init.grey(
     conc,
     lfk,
     log="xy",
-    xlab="Konzentration",
-    ylab="Leitfähigkeit",
+    type="n",
+    xlab=expression(italic(c)*" / "*"M"),
+    ylab=expression(italic(kappa)*" / "*"mS/cm"),
     xaxt="n", yaxt="n",  # keine Achsenskalen
     xaxs="i", yaxs="i",  # Achsenbreite exakt
     xlim=c(min(conc) / 1.2, max(conc) * 1.2),
@@ -58,8 +59,22 @@ lines(
     col="black"
 )
 
-points(conc, lfk)
-points(conc, lfk.brutto)
+points(
+    conc,
+    lfk.brutto,
+    pch=21,
+    col="#878787",
+    bg="#c4c4c4",
+)
+
+points(
+    conc,
+    lfk,
+    pch=21,
+    col="black",
+    bg="white",
+)
+
 
 logticks = plot.axis.log()
 axis(1, at=logticks$small, labels=FALSE, tcl=-0.25)
@@ -67,8 +82,19 @@ axis(1, at=logticks$big, labels=logticks$big.lab, tcl=-0.25)
 axis(2, at=logticks$small, labels=FALSE, tcl=-0.25)
 axis(2, at=logticks$big, labels=logticks$big.lab, tcl=-0.25, las=1)
 
+slope = 11.4 / 0.00005  # mS/cm/M
+plot.annot(
+    0.0006,
+    20,
+    TeX(paste(r"(slope:)", sprintf("%0.0f", slope), "mS/cm/M"))
+)
+slope.normalunit = slope / 1000  # S*cm^2/M
+print(slope.normalunit)
 
 plot.save(EXPORT_PATH, "lfk_molar_1.pdf")
+
+
+
 
 
 
@@ -85,7 +111,7 @@ plot(
     col="#878787",
     bg="#c4c4c4",
     xlab=expression(italic(sqrt(c))*" / "*"M"^"1/2"),
-    ylab=expression(italic(Lambda)*" / "*"S "*"cm"^"-1"*"mol"^"-1"),
+    ylab=expression(italic(Lambda)*" / "*"S "*"cm"^"2"*"mol"^"-1"),
 )
 plot.grid()
 
@@ -124,3 +150,5 @@ plot.annot(
 )
 
 plot.save(EXPORT_PATH, "lfk_molar_2.pdf")
+
+print(summary(reg))

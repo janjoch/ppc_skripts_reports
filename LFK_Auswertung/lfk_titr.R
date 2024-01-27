@@ -11,8 +11,8 @@ COL_ACET_SEC <<- "#7FFF00"
 COL_NHEX_PRIM <<- "#0000CD"
 COL_NHEX_SEC <<- "deepskyblue"
 
-WIDTH <<- 7
-HEIGHT <<- 5
+WIDTH <<- 5
+HEIGHT <<- 4
 
 # quartz(height=HEIGHT, width=WIDTH)
 
@@ -53,8 +53,8 @@ lfk.ausgl.post = predict(reg.post, list(v=v.ausgl.post), interval="confidence")
 
 plot.init.grey(
   v, lfk,
-  #xlim=c(7, 11),
-  #ylim=c(2.23, 2.57),
+  xlim=c(7, 11),
+  ylim=c(2.23, 2.57),
   xlab=expression(italic(V)*" / "*"mL"),
   ylab=expression(italic(kappa)*" / "*"mS/cm")
 )
@@ -73,5 +73,5 @@ lines(c(v.intercept, v.intercept), c(0, 2.28), lwd=2)
 lines(c(v.intercept - v.conf, v.intercept - v.conf), c(0, 2.274), lwd=1)
 lines(c(v.intercept + v.conf, v.intercept + v.conf), c(0, 2.285), lwd=1)
 
-plot.save(EXPORT_PATH, "lfk_titration_full.pdf")
-#plot.save(EXPORT_PATH, "lfk_titration_zoom.pdf")
+#plot.save(EXPORT_PATH, "lfk_titration_full.pdf")
+plot.save(EXPORT_PATH, "lfk_titration_zoom.pdf")
