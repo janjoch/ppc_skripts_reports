@@ -1,0 +1,63 @@
+
+In order to induce vaporization of a substance (the phase transition of liquid to gaseous \textit{at} boiling temperature\footnote{Not to confuse with evaporation, which is the phase transition \textit{below} the boiling temperature of a substance.}), heat must be provided to the system. Under the condition that vapor pressure $p$ and temperature $T$ remain constant during vaporization, the thermal energy provided to the system per mole of vaporized substance equals its molar enthalpy of vaporization $\Delta_VH$.
+
+For the small temperature range of the experiments detailed further on, enthalpies of vaporization can be treated as material constants. Clausius-Clapeyron's model,
+
+\begin{equation} \label{eq:6.2} %\tag{6.2}
+    \frac{dp}{dT} = \frac{h^{(g)} - h^{(l)}}{T \space (v^{(g)} - v^{(l)})}
+\end{equation}
+
+where $h^{(\varphi)}$ and $v^{(\varphi)}$  are the molar volumes of the substance in its liquid and gaseous phases $\varphi$, treats vapor pressure as a function of boiling temperature $T$ with the coexistence curve between liquid and gaseous phases for a graph, and describes the change $dp$ expected for a variation of $dT$ in the substance’s boiling temperature.
+
+Taking into account that $v^{(g)} >> v^{(l)}$, and provided the gaseous phase behaves according to ideal gas law 
+
+\begin{equation} \label{eq:6.5} %\tag{6.5 ideal gas law}
+    v^{(g)} = \frac{R T}{p}
+\end{equation}
+
+the differential equation can be simplified to
+
+\begin{equation} \label{eq:6.6} %\tag{6.6}
+    \frac{dp}{p} = \frac{\Delta_VH}{R} \frac{dT}{T^2}
+\end{equation}
+
+Integration yields
+
+\begin{equation} \label{eq:6.7} %\tag{6.7}
+    \ln \left( \frac{p}{p_0} \right) = \frac{\Delta_VH}{R} \left( \frac{1}{T_0} - \frac{1}{T} \right)
+\end{equation}
+
+Where $p_0$ and $T_0$ are atmospheric pressure and normal boiling temperature at atmospheric pressure respectively and $\Delta_VH$ can be calculated with an arbitrary point $(p, T)$ on the coexistence curve.
+
+
+The substance’s entropy of vaporization at normal boiling temperature can be calculated via the Gibbs-Helmholtz equation 
+
+%delta G = delta vh – T , 
+\begin{equation}\label{eq:gibbs} %\tag{Gibbs-Helmholtz}
+    \Delta G = \Delta_VH - T \Delta_VS
+\end{equation}
+% G = delta vh – T S
+knowing that $\Delta G = 0$ for reactions that have reached an equilibrium.
+
+A phase transitions from the liquid to the gaseous phase can also take place below boiling temperature and vapor pressure. This can be observed for example when blow-drying one’s hair or upon stepping out of the water as the droplets on the skin gradually evaporate. This is possible, because energy levels of the molecules inside the substance differ and some molecules have enough energy to overcome the threshold of the inter-molecular forces binding them to the liquid.
+
+The molecule’s transition from fluid to gaseous phase requires energy which is taken from the fluid in the form of thermal energy, causing a momentary drop in temperature. If the fluid shares an interface with another substance (for example the skin) which has a higher temperature, it will in turn draw energy from this surface to compensate for the deficit.
+Such changes in temperature are very minor for small volumes of evaporated liquid but can be measured for example if the interface is shared with a highly sensitive temperature sensor. 
+
+The recorded temperature drops at contact with the sample and return to its previous value once the entire liquid has evaporated, presenting as a downward peak in a diagram where the sensor’s temperature is plotted against time. The area under the peak, established as $A$, which is calculated form the data obtained from the sensor, is proportional to the thermal energy taken by the liquid from the sensor during that time:
+
+\begin{equation} \label{eq:6.15} %\tag{6.15}
+    %A = k Q_V = k n \Delta_VH
+    A = \int \Delta T dt \propto Q = n \Delta_VH
+\end{equation}
+
+where $n$ is the amount of substance given in moles.
+
+The molar enthalpy of evaporation of the substance can be calculated from this using a reference substance with a known molar enthalpy of evaporation as follows:
+
+\begin{equation} \label{eq:6.18} %\tag{6.18}
+    \Delta_VH_{\text{subst}} = \Delta_VH_{\text{ref}} {\rho_{\text{ref}} \over \rho_{\text{subst}}} {M_{\text{subst}} \over M_{\text{ref}}} {A_{\text{subst}} \over A_{\text{ref}}}
+\end{equation}
+
+Where $\rho$ is the sample’s density, determined separately or taken from known literature.
+

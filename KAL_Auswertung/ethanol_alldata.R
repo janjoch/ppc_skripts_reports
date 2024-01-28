@@ -7,8 +7,8 @@ library(readxl)
 
 source("helpers.R")
 
-WIDTH <<- 5
-HEIGHT <<- 4
+WIDTH <<- 7
+HEIGHT <<- 5
 
 # quartz(height=HEIGHT, width=WIDTH)
 
@@ -46,8 +46,8 @@ plot.colorcycle = c('#006BA4', '#FF800E', '#ABABAB', '#595959', '#5F9ED1', '#C85
 par(mai = c(1,1.2,0.3,0.3))
 plot.init.grey(
   mass, heat,
-  xlab="Massen-% Ethanol",
-  ylab=expression("spezifische Wärmekapazität "*italic(c)[p]^sp*" / "*J*K^-1*g^-1),
+  xlab="Masseanteil Ethanol / %",
+  ylab=expression("spezifische Wärmekapazität "*italic(c)[p]^sp*" / "*J*K^-1*kg^-1),
   #xaxt='n'
   ylim=c(min.val, max.val),
   #ylim=c(acet.rho.data[1] - 1.2 * acet.rho.se[1], acet.rho.data[1] + 1.2 * acet.rho.se[1]),
@@ -77,5 +77,5 @@ legend(
 
 
 
-plot.save("exports/", "ethanol_alldata_5_4_in.pdf")
+plot.save("exports/", "ethanol_alldata_7_5_in.pdf")
 
