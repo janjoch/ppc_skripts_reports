@@ -1,12 +1,14 @@
 
+# author: github.com/janjoch, 2024
+
 rm(list = ls()) # tabula rasa
 
 library(readxl)
 
 source("helpers.R")
 
-HEIGHT <<- 5
-WIDTH <<- 7
+WIDTH <<- 5
+HEIGHT <<- 4
 
 # quartz(height=HEIGHT, width=WIDTH)
 
@@ -20,7 +22,7 @@ WIDTH <<- 7
 data.import = read.csv("raw_data/waermekapazitaet_ethanol.csv")
 mass = (data.import$mass_percentage_measured * 100)
 heat = data.import$specific_heat_capacity_mean
-heat.ci = data.import$calibration_se * 2
+heat.ci = data.import$standard_error_result_95
 group = data.import$group
 
 legend.import = read.csv("raw_data/waermekapazitaet_ethanol_groups.csv")
@@ -71,9 +73,9 @@ legend(
   bg="white"
 )
 
-text(35,3000, "PRELIMINARY!", cex=2)
+# text(35,3000, "PRELIMINARY!", cex=2)
 
 
 
-plot.save("exports/", "ethanol_alldata.pdf")
+plot.save("exports/", "ethanol_alldata_5_4_in.pdf")
 

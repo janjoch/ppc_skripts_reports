@@ -1,4 +1,4 @@
-# by github.com/janjoch, 2023
+# by github.com/janjoch, 2024
 
 library(latex2exp)
 
@@ -7,7 +7,7 @@ join <- function(...) {
   paste(..., sep="")
 }
 
-# hack copied from https://stackoverflow.com/questions/1826519/how-to-assign-from-a-function-which-returns-more-than-one-value
+# copied from https://stackoverflow.com/questions/1826519/how-to-assign-from-a-function-which-returns-more-than-one-value
 ':=' <- function(lhs, rhs) {
   frame <- parent.frame()
   lhs <- as.list(substitute(lhs))

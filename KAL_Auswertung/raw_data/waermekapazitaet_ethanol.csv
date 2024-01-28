@@ -1,19 +1,19 @@
-﻿mass_percentage_aim,mass_percentage_measured,specific_heat_capacity_mean,calibration_se,filename,group,recorded by
-5,0.05,4126.37965383309,5.359203,Edii_ethanol_05.dat,1,Eddy&Andrin
-10,0.1,4242.17232664816,5.359203,Edii_ethanol_10.dat,1,Eddy&Andrin
-15,0.15,4274.93783373329 ,5.359203,Edii_ethanol_15.dat,1,Eddy&Andrin
-20,0.20092,4681.64933586141,50,,2,Kai&Samuel
-25,0.25649,4593.47976389793,50,,2,Kai&Samuel
-30,0.20049,4615.09798219128,50,,2,Kai&Samuel
-40,0.40,3807.84520871616,53,ethanol40%.dat,3,aniko&lilian
-45,0.45,3795.09045828306,54,EtOH45.dat,6,Simon&Ladina
-50,0.50,3705.89841813671,53,ethanol50%.dat,3,aniko&lilian
-55,0.55,3612.91990119547,54,EtOH55.dat,6,Simon&Ladina
-60,0.60,3521.377219,53,ethanol60%.dat,3,aniko&lilian
-65,0.6471,3000,250,Ethanol65%.dat,4,Vithu&Cosmin
-70,0.7166,3000,250,Ethanol70%.dat,4,Vithu&Cosmin
-75,0.7686,3000,250,Ethanol75%.dat,4,Vithu&Cosmin
-80,0.800863811088559,2920.30180186029,50,ethanol80.dat,5,Maria&Janosch
-85,0.85,2658.04237476589,54,EtOH85.dat,6,Simon&Ladina
-90,0.888633179611579,2589.66537686359,50,ethanol90.dat,5,Maria&Janosch
-95,0.937333839726547,2431.71361406898,50,ethanol95.dat,5,Maria&Janosch
+﻿mass_percentage_aim,mass_percentage_measured,specific_heat_capacity_mean,calibration_se,C_dewar_standard_error_J_per_K,standard_error_result,standard_error_result_95,filename,group,recorded by
+5,0.05,4368.31798161,,5.359203,49.9,139.72,Edii_ethanol_05.dat,1,Eddy&Andrin
+10,0.1,4424.77905578,,5.359203,49.9,139.72,Edii_ethanol_10.dat,1,Eddy&Andrin
+15,0.15,4495.69342998,,5.359203,49.9,139.72,Edii_ethanol_15.dat,1,Eddy&Andrin
+20,0.20092,4681.64933586141,,2.34,53,148.4,,2,Kai&Samuel
+25,0.25649,4593.47976389793,,2.34,53,148.4,,2,Kai&Samuel
+30,.30049,4615.09798219128,,2.34,53,148.4,,2,Kai&Samuel
+40,0.40,3807.84520871616,53,1.06,26,72.8,ethanol40%.dat,3,aniko&lilian
+45,0.45,3367.69133657166,54,0.54,22,61.6,EtOH45.dat,6,Simon&Ladina
+50,0.50,3705.89841813671,53,1.06,26,72.8,ethanol50%.dat,3,aniko&lilian
+55,0.55,2918.83026579099,54,0.54,22,61.6,EtOH55.dat,6,Simon&Ladina
+60,0.60,3521.377219,53,1.06,26,72.8,ethanol60%.dat,3,aniko&lilian
+65,0.6471,3139.07308237638,17.261028,1.4,25,70,Ethanol65%.dat,4,Vithu&Cosmin
+70,0.7166,2948.48284523564,17.261028,1.40,25,70,Ethanol70%.dat,4,Vithu&Cosmin
+75,0.7549,2757.70402329773,17.261028,1.40,25,70,Ethanol75%.dat,4,Vithu&Cosmin
+80,0.800863811088559,2920.30180186029,50,1.47,25,69.16,ethanol80.dat,5,Maria&Janosch
+85,0.85,2153.80012626734,54,0.54,13,36.4,EtOH85.dat,6,Simon&Ladina
+90,0.888633179611579,2589.66537686359,50,1.47,24.7,69.16,ethanol90.dat,5,Maria&Janosch
+95,0.937333839726547,2431.71361406898,50,1.47,24.7,69.16,ethanol95.dat,5,Maria&Janosch
