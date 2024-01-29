@@ -51,6 +51,7 @@ FBy <- function(x, y, sy, ...) {
 plot.init.grey <- function(
   x,
   y,
+  init.par=TRUE,
   xlim=NULL,
   ylim=NULL,
   xlab=expression(italic(t)*" / "*"s"),
@@ -60,6 +61,9 @@ plot.init.grey <- function(
   col="darkgrey",
   ...
 ) {
+  if(init.par) {
+    par(mai = c(1,1.2,0.3,0.3))
+  }
   plot(
     x,
     y,
@@ -137,6 +141,7 @@ plot.annot <- function(x, y, text, xjust=0.5, yjust=0.5, adj=0.15, ...) {
 plot.regression <- function(
   x,
   y,
+  subset=NULL,
   draw.annotation=TRUE,
   slope.annot=(function(slope)(TeX(paste(r"(slope:)", sprintf("%0.4f", slope), "K/s")))),
   slope.annot.x.offset=0,
@@ -146,6 +151,10 @@ plot.regression <- function(
   delta.annot.y=(function(delta)(TeX(paste(r"(\Delta T =)", sprintf("%0.2f", delta), "K")))),
   ...
 ) {
+    if(!is.null(subset)) {
+      x = x[subset]
+      y = y[subset]
+    }
     reg <- lm(y ~ x)
     y.pred <- predict(reg)
 

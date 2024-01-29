@@ -7,6 +7,9 @@ y <- c(0.56, 0.41, 0.05, 1.10, 1.97, 4.44, 5.63, 9.01)
 
 plot(x, y, xlim=c(0,12), ylim=c(-5,15), pch=21, bg="red")
 
+x = time
+y = temp
+
 model <- lm(y ~ 0 + I(x) + I(x^2))
 print(summary(model))
 
