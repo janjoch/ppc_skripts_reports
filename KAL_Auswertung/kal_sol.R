@@ -17,6 +17,8 @@ EQUIB.WIDTH = 40
 
 HEIGHT <<- 7
 WIDTH <<- 10
+HEIGHT <<- 5
+WIDTH <<- 7
 
 IMPORT_PATH <<- "raw_data/"
 EXPORT_PATH_SOL <<- "exports/solution_enthalpy/"
@@ -46,12 +48,13 @@ analyse.solv.enth <- function(
     temp,
     time,
     export.path=export.path,
-    export.stats=export.stats.drop
+    export.stats=export.stats.drop,
+    detect.mode = "slope.next"
   )
-  
+  print(stats.drop)
   index.last = length(time)
-  time.forslope = time[(stats.drop$index.min):index.last]
-  temp.forslope = temp[(stats.drop$index.min):index.last]
+  time.forslope = time[(stats.drop$index.detected):index.last]
+  temp.forslope = temp[(stats.drop$index.detected):index.last]
   
   stats.slope = process.slope(
     time.forslope,

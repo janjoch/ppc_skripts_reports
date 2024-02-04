@@ -47,9 +47,10 @@ ddr <- function(filename, sheet, export_name_1, export_name_2, export.csv){
   
   ntk = -b/a        # Normalsiedetemp. in K
   d_vS = R * a     # molare Verdampfungsentropie bei ntk
+  d_vS_s = R * sa
   
-  table_2 = data.frame(d_vH, c_d_vH, ntk, d_vS)
-  names(table_2) = c("d_vH", "c_d_vH", "ntk", "d_vS")
+  table_2 = data.frame(d_vH, c_d_vH, ntk, d_vS, d_vS_s)
+  names(table_2) = c("d_vH", "c_d_vH", "ntk", "d_vS", "d_vS_s")
   print(table_2)
   write.csv(table_2, export.csv)
   #print(ts)

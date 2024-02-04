@@ -57,10 +57,7 @@ process.slope <- function(time, temp, export.path, export.stats, plot.init=TRUE)
       plot.init.grey(time, temp)
     }
     
-    # mark slope
-    plot.line.highlight(time.slope, temp.slope)
-    
-    # delta t
+   # delta t
     plot.line.annot(
       c(time.slope.min, time.slope.max),
       c(temp.slope.min, temp.slope.min)
@@ -91,7 +88,10 @@ process.slope <- function(time, temp, export.path, export.stats, plot.init=TRUE)
       yjust=1
     )
     
-    # Regressionsgerade
+    # mark slope
+    plot.line.highlight(time.slope, temp.slope)
+    
+     # Regressionsgerade
     abline(reg, lty=2, lw=2)
   }
   
@@ -110,7 +110,7 @@ process.drop <- function(
   detect.width.high=40,
   detect.offset.low=20,
   detect.width.low=40,
-  detect.mode="nextslope",
+  detect.mode="slope.next",
   label.position="above"
 ) {
   temp.equib.start = mean(temp[1:10])

@@ -7,8 +7,8 @@ DRAW.PLOTS = TRUE
 
 THRES <<- 0.2
 
-HEIGHT <<- 7
-WIDTH <<- 10
+HEIGHT <<- 4
+WIDTH <<- 5
 
 IMPORT_PATH <<- "raw_data/"
 EXPORT_PATH_CAL <<- "exports/calib/"

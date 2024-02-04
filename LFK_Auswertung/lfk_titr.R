@@ -51,6 +51,22 @@ v.ausgl.post = seq(v.intercept - 1, max(v) + 1, length=50)
 lfk.ausgl.pre = predict(reg.pre, list(v=v.ausgl.pre), interval="confidence")
 lfk.ausgl.post = predict(reg.post, list(v=v.ausgl.post), interval="confidence")
 
+
+# uncertainty estimation
+i.unc.pred = predict(reg.pre, list(v=v.intercept), interval="confidence")
+j.unc.pred = predict(reg.post, list(v=v.intercept), interval="confidence")
+
+# assuming y = ax + b
+i.a = summary(reg.pre)$coef[2,1]
+j.a = summary(reg.post)$coef[2,1]
+
+i.unc = i.unc.pred[3] - i.unc.pred[1]
+j.unc = j.unc.pred[3] - j.unc.pred[1]
+
+v.conf = (i.unc + j.unc) / (j.a - i.a)
+
+
+
 plot.init.grey(
   v, lfk,
   xlim=c(7, 11),
@@ -68,10 +84,10 @@ points(v, lfk)
 points(v[range.prestep], lfk[range.prestep], pch=21, bg="white")
 points(v[range.poststep], lfk[range.poststep], pch=21, bg="white")
 
-v.conf = 0.132
+#v.conf = 0.132
 lines(c(v.intercept, v.intercept), c(0, 2.28), lwd=2)
 lines(c(v.intercept - v.conf, v.intercept - v.conf), c(0, 2.274), lwd=1)
-lines(c(v.intercept + v.conf, v.intercept + v.conf), c(0, 2.285), lwd=1)
+lines(c(v.intercept + v.conf, v.intercept + v.conf), c(0, 2.286), lwd=1)
 
 #plot.save(EXPORT_PATH, "lfk_titration_full.pdf")
 plot.save(EXPORT_PATH, "lfk_titration_zoom.pdf")

@@ -2,8 +2,8 @@
 
 rm(list=ls())
 
-WIDTH <<- 8
-HEIGHT <<- 6
+WIDTH <<- 12
+HEIGHT <<- 8
 
 if(TRUE) {
   WIDTH <<- 5
@@ -30,18 +30,15 @@ source("helpers.R")
 #source("kal_routines.R")
 
 
-data.table = read.table("raw_data/vinegar_cont.dat")
+data.table = read.table("raw_data/vinegar_noncont.dat")
 time = data.table$V1
 temp = data.table$V2
 
-i.start = which.min(temp) + 15
-i.end = 380
-
-j.start = 450
-j.end = 551
+i.select = c(209, 247, 284, 328, 368, 407, 447, 529, 568)
+j.select = c(686,  727,  767,  806,  849,  887,  928,  967, 1008, 1049, 1091, 1129)
 
 
-jreg = lm(temp ~ time, subset=c(j.start:j.end))
+jreg = lm(temp ~ time, subset=j.select)
 #jreg.pred = predict(jreg)
 #lines(jreg, col="black", lwd=2)
 
@@ -58,11 +55,11 @@ plot.init.grey(
 
 
 
-ireg <- lm(temp ~  I(time) + I(time^2), subset=c(i.start:i.end))
+ireg <- lm(temp ~  I(time) + I(time^2), subset=i.select)
 print(summary(ireg))
 
 # Berechnung der Modellfunktion inkl. Vertrauenskurven
-x.c <- seq(100, 200, 1)
+x.c <- seq(100, 32000, 1)
 y.c <- predict(ireg, list(time=x.c)) # , interval="confidence")
 matlines(x.c, y.c, lty=c(2,2,2), lwd=c(2,1,1), lw=1)
 
@@ -70,14 +67,14 @@ matlines(x.c, y.c, lty=c(2,2,2), lwd=c(2,1,1), lw=1)
 jreg = plot.regression(
   time,
   temp,
-  subset=c(j.start:j.end),
+  subset=j.select,
   draw.annotation = FALSE,
 )
-jreg = lm(temp ~ time, subset=c(j.start:j.end))
+jreg = lm(temp ~ time, subset=j.select)
 
 
 # Berechnung der Fitkurven
-time.space <- seq(from=90, to=220, by=0.1)
+time.space <- seq(from=70, to=320, by=0.1)
 th1 <- predict(ireg, list(time=time.space))
 th2 <- predict(jreg, list(time=time.space))
 
@@ -90,6 +87,7 @@ inter.temp = predict.linear(summary(jreg)$coef[1,1], summary(jreg)$coef[2,1], in
 base.temp = mean(temp[120:160])
 base.time = approx(th1, time.space, base.temp)$y
  
+
 time.rise = inter.time - base.time
 temp.rise = inter.temp - base.temp
 
@@ -114,10 +112,9 @@ print(time.rise)
 print("Unsicherheit:")
 print(time.unc)
 
+points(time[i.select], temp[i.select], pch=21, bg="blue")
 
-plot.line.highlight(time[i.start:i.end], temp[i.start:i.end])
-
-plot.line.highlight(time[j.start:j.end], temp[j.start:j.end], col="red")
+points(time[j.select], temp[j.select], pch=21, bg="red")
 
 # delta t
 plot.line.annot(
@@ -125,7 +122,7 @@ plot.line.annot(
   c(base.temp, base.temp)
 )
 plot.annot(
-  mean(c(base.time, inter.time)) + 130, # + 8,
+  mean(c(base.time, inter.time)) + 260,
   base.temp + 0.1,
   TeX(paste(r"(\Delta t =)", sprintf("%0.2f", time.rise), "s"))
 )
@@ -136,7 +133,7 @@ plot.line.annot(
   c(base.temp, inter.temp)
 )
 plot.annot(
-  inter.time + 90,
+  inter.time + 150,
   mean(c(base.temp, inter.temp)),
   TeX(paste(r"(\Delta T =)", sprintf("%0.2f", inter.temp - base.temp), "°C"))
 )
@@ -144,7 +141,7 @@ plot.annot(
 points(inter.time, inter.temp, pch=21, bg="red")
 points(base.time, base.temp, pch=21, bg="red")
 
-plot.save(EXPORT_PATH, "vinegar_cont.pdf")
+plot.save(EXPORT_PATH, "vinegar_uncont.pdf")
 
 if(FALSE) {
   plot((time[2:length(time)] + time[1:length(time) - 1]) / 2 , temp[2:length(temp)] - temp[1:(length(temp)-1)], type="l", col="red")
