@@ -1,5 +1,3 @@
-# use radian as better R shell
-
 rm(list=ls())
 
 WIDTH <<- 5
@@ -63,7 +61,10 @@ reg = plot.regression(
 reg.a = reg$coefficients[1]
 reg.b = reg$coefficients[2]
 
-lfk.zero = predict.linear(reg.a, reg.b, 25)
+temp.zero = 25
+lfk.zero = predict.linear(reg.a, reg.b, temp.zero)
+
+unc.pred = predict(reg, list(x=temp.zero), interval="confidence")
 
 alpha = reg.b / lfk.zero
 print(summary(reg))

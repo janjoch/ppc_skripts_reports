@@ -1,0 +1,59 @@
+
+% DEBUG AGAINST "nomenclature" STRAY TEXT ON TITLE PAGE:
+% SET MENU -> TEX LIVE VERSION -> 2021
+
+
+\documentclass{classes/report}
+
+\usepackage{blindtext}
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{3}
+
+\input{parts/title.tex}
+
+\begin{document}
+
+    \maketitle
+    \newpage
+    
+    \begin{multicols}{2}
+    
+        
+    
+            \input{parts/introduction.tex}
+            
+        %\newpage    
+        
+        
+            \input{parts/Experimental.tex}
+        
+            \input{parts/ResultsDiscussion.tex}
+
+            % \input{parts/exercises.tex}
+
+            
+        
+        
+        
+        % References
+        %\input{References.bib}
+        \printbibliography[
+            heading=bibintoc,
+            title={References}
+        ]
+
+        
+    \end{multicols}
+    \newpage
+      
+    \appendix
+    % \section{Appendix}
+    
+        \input{parts/Appendix.tex}
+    
+    %\section{Acknowledgment}
+        
+        %\input{parts/Acknowledgment.tex}
+
+\end{document}

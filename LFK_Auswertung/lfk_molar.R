@@ -1,5 +1,3 @@
-# use radian as better R shell
-
 rm(list=ls())
 
 WIDTH <<- 5
@@ -34,8 +32,9 @@ v.abs = temp.data$"V (mL)"
 v.rel = v.abs - v.start
 conc = CONC.TITER * v.rel / v.abs
 
-par(mai = c(1,1.1,0.3,0.3))
+#par(mai = c(1,1.1,0.3,0.3))
 par(mgp = c(2.5,0.8,0))
+par(mai = c(1,1,0.3,0.3))
 plot.init.grey(
     conc,
     lfk,
@@ -102,11 +101,13 @@ conc.sqrt = sqrt(conc)
 lfk.molar = lfk / conc / 1000  # S cm^2 / mol
 lfk.molar.brutto = lfk.brutto / conc / 1000  # S cm^2 / mol
 
+par(mai = c(1,1,0.3,0.3))
 plot(
     conc.sqrt,
     lfk.molar.brutto,
     xlim=c(0, 0.044),
-    ylim=c(0, 320),
+    #ylim=c(0, 320),
+    ylim=c(195, 320),
     pch=21,
     col="#878787",
     bg="#c4c4c4",
@@ -141,8 +142,10 @@ points(
 )
 
 plot.annot(
-    0.022,
-    100,
+    #0.022,
+    0.03,
+    #100,
+    290,
     join("y = ", sprintf("%0.0f", reg.b), " x + ", sprintf("%0.1f", reg.a)),
     xjust=0.5,
     yjust=0.5,

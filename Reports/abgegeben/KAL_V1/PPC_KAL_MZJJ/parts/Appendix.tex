@@ -1,0 +1,68 @@
+% \subsection{Corse book exercises}
+\includepdf[pages=1, scale = 0.7, pagecommand={\section{Appendix}\subsection{Course book exercises}}]{figures/KAL_exercises.pdf} 
+
+\subsection{Labjournal}
+
+\includegraphics[scale = 0.2]{figures/photo_1.jpg} 
+\includegraphics[scale = 0.2]{figures/photo_2.jpg} 
+\includegraphics[scale = 0.2]{figures/photo_3.jpg} 
+\includegraphics[scale = 0.2]{figures/photo_4.jpg} 
+\includegraphics[scale = 0.2]{figures/photo_5.jpg} 
+
+
+
+
+\subsection{R and Python scripts} \label{r_scripts}
+
+
+
+\subsubsection{Calibration and specific heat capacity of ethanol/water mixture}
+\Rfile{scripts/kal_calib.R}
+
+\includepdf[pages=1, scale = 0.75, pagecommand=\subsubsection{Uncertainty estimate of calibration and specific heat capacity of ethanol/water mixture}]{scripts/uncertainty_modelling_kal_calib.pdf} 
+\includepdf[pages=2-4, scale = 0.75,pagecommand={}]{scripts/uncertainty_modelling_kal_calib.pdf} \label{append:unc_calib}
+
+
+\subsubsection{Specific heat capacity of ethanol - overview plot}
+\Rfile{scripts/kal_ethanol_alldata.R}
+
+\newpage
+
+
+\subsubsection{Solution enthalpy of ammonium nitrate}
+\Rfile{scripts/kal_sol.R}
+
+\includepdf[pages=1, scale = 0.75, pagecommand=\subsubsection{Uncertainty estimate of solution enthalpy of ammonium nitrate}]{scripts/kal_sol_enth_results_unc_modelling.pdf} 
+\includepdf[pages=2-, scale = 0.75,pagecommand={}]{scripts/kal_sol_enth_results_unc_modelling.pdf} \label{append:unc_sol}
+
+
+
+\subsubsection{Calorimetric titration of vinegar}
+\Rfile{scripts/kal_vinegar.R}
+\Rfile{scripts/kal_vinegar_discontinuous.R}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.95\textwidth]{figures/plots/vinegar_uncont_highres.pdf}
+    \caption{Discrete titration of vinegar with sodium hydroxide.}
+    \label{fig:vinegar_uncont_highres}
+\end{figure}
+
+\newpage
+
+
+\subsubsection{Melting enthalpy of ice}
+\Rfile{scripts/kal_ice.R}
+
+\includepdf[pages=1, scale = 0.75, pagecommand=\subsubsection{Uncertainty estimate of melting enthalpy of ice}]{scripts/kal_ice_results_uncert.pdf} 
+\includepdf[pages=2-, scale = 0.75,pagecommand={}]{scripts/kal_ice_results_uncert.pdf} \label{append:unc_ice}
+
+
+\subsubsection{Plotting helper scripts}
+\Rfile{scripts/helpers.R}
+
+
+
+
+
+
